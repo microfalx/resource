@@ -1,12 +1,11 @@
 package net.microfalx.resource.rocksdb;
 
 import net.microfalx.lang.TimeUtils;
+import net.microfalx.lang.service.Logger;
 import net.microfalx.resource.ResourceException;
 import org.rocksdb.Options;
 import org.rocksdb.RocksDB;
 import org.rocksdb.RocksDBException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.lang.ref.Reference;
@@ -28,7 +27,7 @@ import static org.rocksdb.CompressionType.SNAPPY_COMPRESSION;
  */
 public class RocksDbManager {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RocksDbManager.class);
+    private static final Logger LOGGER = Logger.get(RocksDbManager.class);
 
     private static final long CLEANUP_INTERVAL = 60_000;
 
@@ -70,7 +69,7 @@ public class RocksDbManager {
     public void setMaximumSize(long maximumSize) {
         requireBounded(maximumSize, 0, Runtime.getRuntime().maxMemory());
         this.maximumSize = maximumSize;
-        LOGGER.info("Maximum size for a value is " + formatBytes(maximumSize));
+        LOGGER.debug("Maximum size for a value is " + formatBytes(maximumSize));
     }
 
     /**
