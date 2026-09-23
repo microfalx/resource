@@ -2,7 +2,8 @@ package net.microfalx.resource;
 
 import net.microfalx.lang.AnnotationUtils;
 import net.microfalx.lang.JvmUtils;
-import net.microfalx.lang.service.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -28,7 +29,7 @@ import static net.microfalx.resource.ResourceUtils.toUri;
  */
 public class ResourceFactory {
 
-    private static final Logger LOGGER = Logger.get(ResourceFactory.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ResourceFactory.class);
 
     private static final List<ResourceResolver> resolvers = new CopyOnWriteArrayList<>();
     private static final List<ResourceProcessor> processors = new CopyOnWriteArrayList<>();
