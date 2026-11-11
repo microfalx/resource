@@ -1,5 +1,6 @@
 package net.microfalx.resource;
 
+import net.microfalx.lang.ExceptionUtils;
 import net.microfalx.lang.StringUtils;
 import net.microfalx.lang.UriUtils;
 
@@ -9,6 +10,8 @@ import java.net.URL;
 import java.util.Base64;
 import java.util.Collection;
 import java.util.Map;
+
+import static net.microfalx.lang.ExceptionUtils.rethrowExceptionAndReturn;
 
 /**
  * An interface for a resource descriptor that abstracts from the actual
@@ -156,6 +159,20 @@ public interface Resource extends Serializable {
      */
     static Resource url(URL url) {
         return UrlResource.create(url);
+    }
+
+    /**
+     * Returns the URI resource.
+     *
+     * @param uri the URI to the resource
+     * @return a non-null instance
+     */
+    static Resource uri(URI uri) {
+        try {
+            return UrlResource.create(uri);
+        } catch (IOException e) {
+            return rethrowExceptionAndReturn(e);
+        }
     }
 
     /**
